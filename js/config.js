@@ -1,7 +1,13 @@
-window.DELIVER_BOOKS_CONFIG = Object.freeze({
+window.DeliverBooksConfig = Object.freeze({
   supabaseUrl: 'https://pwqbqducwajtksyysimq.supabase.co',
-  supabaseAnonKey: '',
+  supabaseAnonKey: 'sb_publishable_YPQ4RDsfPS7ONabVax2vPw_XYpSZ2LH',
   brand: 'Deliver BOOKS',
   currency: 'EGP',
-  deliveryConfigured: false
+  deliveryConfigured: false,
+  contact: {
+    phone: '+201555949412',
+    whatsapp: '+201555949412',
+    facebook: 'https://www.facebook.com/DeliverBooksEgypt/',
+    instagram: 'https://www.instagram.com/deliverbooks/'
+  }
 });
