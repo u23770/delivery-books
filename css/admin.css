@@ -51,7 +51,7 @@ button,input,select,textarea{font:inherit}.admin-shell{min-height:100vh;display:
 .admin-brand img{width:142px;height:72px;object-fit:contain;object-position:center;display:block}
 .admin-side nav button.is-active:before{background:var(--ad-red)!important}.admin-side nav button.is-active em{background:var(--ad-red)!important}.admin-side nav button.is-active i{color:#fff!important}
 .admin-user-chip>b{background:#fff;color:var(--ad-ink)}
-.staff-card:before{width:190px!important;height:120px!important;display:block!important;margin-bottom:18px!important;background:transparent url("../assets/deliver-books-logo.svg") center/contain no-repeat!important;color:transparent!important;font-size:0!important;line-height:0!important}
+.staff-card:before{display:none!important}
 .admin-stat-card.warm{background:#f8e9eb!important}.admin-stat-card.warm:after{background:rgba(227,9,25,.10)!important}
 .order-dot{background:var(--ad-red)!important;box-shadow:0 0 0 4px rgba(227,9,25,.10)!important}
 .admin-list button:hover{border-color:var(--ad-red)!important;background:#fff5f6!important}
