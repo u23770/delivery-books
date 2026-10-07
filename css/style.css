@@ -408,3 +408,37 @@ h1,h2,h3,.hero-copy h1,.section-heading h2,.collection-card h3,.product-card-tit
 .header-actions{gap:4px!important;padding:4px!important;border-radius:12px!important}.header-account,.header-bag,.mobile-menu-button{width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;padding:0!important;border-radius:9px!important}.header-account span:last-child,.header-bag>span:not(.header-action-icon){display:none!important}.header-action-icon{width:18px!important;height:18px!important}.header-bag b{position:absolute!important;inset-inline-end:-3px!important;inset-block-start:-5px!important;min-width:17px!important;height:17px!important;border:2px solid #fffaf7!important;font-size:7px!important}.mobile-menu-button{display:inline-flex!important}.mobile-menu-lines{width:17px;height:13px}.mobile-menu-lines i{width:17px;height:1.7px}
 }
 @media(max-width:430px){.db-hero-art{height:215px!important;min-height:215px!important}.db-hero .hero-copy{padding-inline:18px!important}.db-hero .hero-actions .button-primary{width:100%!important}.db-hero .hero-secondary{flex:1!important;justify-content:center!important}}
+
+/* Final audit fix — unified hero surface, stable CTAs, and side bookmarks */
+.db-hero{
+  background:radial-gradient(circle at 18% 22%,rgba(182,139,85,.22),transparent 26%),linear-gradient(135deg,#4f1820 0%,#64232c 48%,#7a3038 100%)!important;
+  border-color:rgba(255,255,255,.12)!important;
+}
+.db-hero .hero-copy{color:#fff!important}
+.db-hero .hero-copy h1{color:#fff!important}
+.db-hero .hero-copy p{color:rgba(255,250,245,.82)!important}
+.db-hero .hero-eyebrow{color:#e8c89c!important}
+.db-hero .hero-eyebrow i{background:#b68b55!important}
+.db-hero .hero-footnote{color:rgba(255,250,245,.65)!important}
+.db-hero .hero-footnote>i{background:#b68b55!important}
+.db-hero-art{
+  background:radial-gradient(circle at 50% 28%,rgba(182,139,85,.20),transparent 28%),linear-gradient(145deg,rgba(38,9,14,.26),rgba(45,10,16,.48))!important;
+  border-inline-start:1px solid rgba(255,255,255,.12)!important;
+}
+.db-hero .hero-actions{display:flex!important;align-items:center!important;gap:12px!important;flex-wrap:nowrap!important}
+.db-hero .hero-actions>*{box-sizing:border-box!important;position:relative!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+.db-hero .hero-actions .button-primary{
+  min-height:48px!important;padding:0 22px!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:10px!important;background:#fffaf5!important;color:#4f1820!important;box-shadow:0 10px 25px rgba(20,4,8,.18)!important;
+}
+.db-hero .hero-actions .button-primary:before,.db-hero .hero-actions .button-primary:after,
+.db-hero .hero-actions .hero-secondary:before,.db-hero .hero-actions .hero-secondary:after{display:none!important;content:none!important}
+.db-hero .hero-actions .hero-secondary{
+  min-height:48px!important;padding:0 18px!important;border:1px solid rgba(255,255,255,.25)!important;border-radius:10px!important;background:rgba(255,255,255,.08)!important;color:#fff!important;
+}
+.db-hero .hero-actions .button-primary:hover{background:#fff!important;transform:translateY(-1px)!important}
+.db-hero .hero-actions .hero-secondary:hover{background:rgba(255,255,255,.15)!important;border-color:rgba(255,255,255,.45)!important;transform:translateY(-1px)!important}
+@media(max-width:680px){
+  .db-hero{background:radial-gradient(circle at 20% 18%,rgba(182,139,85,.22),transparent 30%),linear-gradient(160deg,#4f1820,#702b35)!important}
+  .db-hero .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important}
+  .db-hero .hero-actions .button-primary,.db-hero .hero-actions .hero-secondary{width:100%!important;min-height:46px!important}
+}
