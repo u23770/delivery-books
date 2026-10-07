@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-const sb=window.supabase.createClient(window.DeliverBooksConfig.supabaseUrl,window.DeliverBooksConfig.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,storageKey:'db-customer'}});
+const sb=window.DBApi.client;
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const root=document.querySelector('#auth-root')||document.querySelector('#account-root');
 const msg=(text,type='success')=>{const el=document.querySelector('#auth-message');if(el){el.hidden=false;el.className='form-message '+type;el.textContent=text}};
