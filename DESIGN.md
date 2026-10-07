@@ -1,14 +1,15 @@
 ---
 version: alpha
 colors:
-  ink: "#252924"
-  inkSoft: "#454b43"
-  paper: "#f7f5ef"
-  paperDeep: "#eeeae0"
-  surface: "#fffefa"
-  olive: "#747c63"
-  clay: "#bd6849"
-  line: "#e5e1d7"
+  ink: "#52191f"
+  inkSoft: "#6f4449"
+  paper: "#fffdfc"
+  paperDeep: "#f8eff0"
+  surface: "#ffffff"
+  red: "#e30919"
+  redDark: "#b90816"
+  burgundy: "#52191f"
+  line: "#eadfe0"
 typography:
   display:
     fontFamily: "Georgia, Times New Roman, serif"
@@ -30,30 +31,34 @@ components:
 ---
 
 ## Overview
-Deliver BOOKS inherits the established Center El Gowaily storefront visual system. The public experience is editorial commerce: restrained, product-led, and image-forward. Aquarium is a behavioral reference for order and tracking states, not a visual redesign source.
+DeliverBooks is an editorial bookstore experience built around the supplied brand mark: deep burgundy typography, a clean red arch, and white space. Center El Gowaily remains the structural reference; Aquarium remains the behavioral reference for commerce, tracking, and admin workflows.
 
-## Colors
-The runtime source of truth is the root token block in css/style.css. Ink and paper create the primary contrast, olive structures secondary information, and clay is the main commerce accent.
+## Brand palette
+- Burgundy `#52191f` is the primary ink, navigation anchor, and dark surface.
+- Red `#e30919` is the single commerce/action accent and the visual echo of the logo arch.
+- White `#ffffff` and warm-white `#fffdfc` keep the interface calm and spacious.
+- Soft blush `#f8eff0` and hairline `#eadfe0` provide quiet section separation.
 
 ## Typography
-Georgia is reserved for major editorial headings and product titles. System UI handles controls, body copy, Arabic text, and dense commerce information.
+Georgia is reserved for major editorial headings and product titles. System UI handles controls, body copy, Arabic text, and dense commerce information. The supplied DeliverBooks logo is used as the identity lockup instead of recreating the wordmark in interface text.
 
 ## Layout
-Desktop preserves the existing 1280px Center El Gowaily content width and four-column catalog rhythm. Mobile collapses to two product columns and drawer navigation. The hero preserves the same editorial composition while changing only the subject from apparel to books.
+Desktop preserves the established 1280px storefront width and four-column catalog rhythm. Mobile collapses to two product columns and drawer navigation. The hero uses the logo mark as a restrained identity moment rather than adding decorative effects.
 
 ## Elevation & Depth
-Static content stays mostly flat with hairline borders. Soft shadows are reserved for overlays, drawers, and limited media depth.
+Static content stays mostly flat with hairline borders. Shadows are soft and sparse, reserved for overlays, drawers, cards that need separation, and admin surfaces.
 
 ## Shapes
-Square and near-square surfaces dominate. Buttons and inputs retain the established 2px radius. Circular shapes are reserved for utility controls and counters.
+Square and near-square surfaces dominate. Buttons and inputs retain the established 2px radius. Circular shapes are reserved for utility controls and logo/mark details.
 
 ## Components
-Header, announcement bar, search, product grid, collection grid, buttons, empty states, cart, and checkout inherit the Center El Gowaily contracts. Delivery must not appear operational until real zones and fees are confirmed.
+Header, announcement bar, search, product grid, collection grid, buttons, empty states, cart, checkout, tracking, and admin inherit the same brand tokens. The logo is used in the public header/footer and admin identity surfaces.
 
 ## Do's and Don'ts
-- Preserve Center El Gowaily spacing, palette, card proportions, and responsive breakpoints.
+- Use the supplied DeliverBooks identity consistently: burgundy + red + white.
+- Keep the red accent selective; do not turn every surface into a red block.
+- Preserve Center El Gowaily spacing, card proportions, and responsive behavior.
 - Use honest empty and unconfigured states when real client data is missing.
-- Keep Arabic and English content legible without moving primary controls.
 - Never invent prices, delivery fees, payment methods, catalog categories, or policies.
 - Do not connect or publish to Vercel during development.
 - Avoid generic pill-heavy SaaS styling or an unrelated bookstore redesign.
