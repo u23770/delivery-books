@@ -10,7 +10,7 @@ function gate(){
 }
 
 function shell(){
-  document.body.innerHTML='<div class="admin-shell"><aside class="admin-side"><div class="admin-brand-row"><div class="admin-brand"><img src="assets/Deliverbooks.png" alt="DeliverBooks"><span>ADMIN CONSOLE</span></div><span class="admin-version">DB / 01</span></div><div class="admin-nav-label">الإدارة</div><nav><button data-tab="orders"><i>◌</i><span>الطلبات</span><em></em></button><button data-tab="products"><i>□</i><span>الكتب</span><em></em></button><button data-tab="categories"><i>◇</i><span>الأقسام</span><em></em></button><button data-tab="zones"><i>⌖</i><span>التوصيل</span><em></em></button></nav><div class="admin-side-foot"><div class="admin-user-chip"><b>DB</b><span><strong>Deliver BOOKS</strong><small>ADMIN · ACCESS CODE</small></span></div><button id="logout">تسجيل الخروج</button></div></aside><main class="admin-main"><header class="admin-top"><div class="admin-top-start"><span class="admin-kicker">DELIVER BOOKS · ADMIN</span><span class="admin-page-label" id="title-label">Operations</span></div><div class="admin-top-actions"><span class="admin-live"><i></i>متصل</span><button id="refresh" class="button button-outline button-small">تحديث البيانات</button></div></header><section class="admin-content"><div class="admin-page-heading"><div><span class="eyebrow">STORE MANAGEMENT</span><h1 id="title">الطلبات</h1></div><p id="page-subtitle">متابعة الطلبات وإدارة حالة كل طلب من مكان واحد.</p></div><section id="view"></section></section><footer class="admin-footer"><span>© Deliver BOOKS</span><span>Development workspace · not published</span></footer></main></div>'
+  document.body.innerHTML='<div class="admin-shell"><aside class="admin-side"><div class="admin-brand-row"><div class="admin-brand"><img src="assets/Deliverbooks.png" alt="Deliver BOOKS"><span>ADMIN CONSOLE</span></div><span class="admin-version">DB / 02</span></div><div class="admin-nav-label">الإدارة</div><nav><button data-tab="dashboard"><i>⌂</i><span>نظرة عامة</span><em></em></button><button data-tab="orders"><i>◌</i><span>الطلبات</span><em></em></button><button data-tab="products"><i>□</i><span>الكتب</span><em></em></button><button data-tab="inventory"><i>▤</i><span>المخزون</span><em></em></button><button data-tab="categories"><i>◇</i><span>الأقسام</span><em></em></button><button data-tab="zones"><i>⌖</i><span>التوصيل</span><em></em></button><button data-tab="promotions"><i>%</i><span>الخصومات</span><em></em></button><button data-tab="customers"><i>♙</i><span>العملاء</span><em></em></button><button data-tab="settings"><i>⚙</i><span>الإعدادات</span><em></em></button></nav><div class="admin-side-foot"><div class="admin-user-chip"><b>DB</b><span><strong>Deliver BOOKS</strong><small>ADMIN · ACCESS CODE</small></span></div><button id="logout">تسجيل الخروج</button></div></aside><main class="admin-main"><header class="admin-top"><div class="admin-top-start"><span class="admin-kicker">DELIVER BOOKS · ADMIN</span><span class="admin-page-label" id="title-label">Operations</span></div><div class="admin-top-actions"><span class="admin-live"><i></i>متصل</span><button id="refresh" class="button button-outline button-small">تحديث البيانات</button></div></header><section class="admin-content"><div class="admin-page-heading"><div><span class="eyebrow">STORE MANAGEMENT</span><h1 id="title">الطلبات</h1></div><p id="page-subtitle">متابعة الطلبات وإدارة حالة كل طلب من مكان واحد.</p></div><section id="view"></section></section><footer class="admin-footer"><span>© Deliver BOOKS</span><span>Development workspace · not published</span></footer></main></div>'
 }
 
 function orders(){
@@ -24,6 +24,25 @@ function row(o){
 function paint(){let t=(q('#search').value||'').toLowerCase(),f=q('#filter').value;q('#list').innerHTML=O.filter(o=>(!f||o.status===f)&&[o.orderNumber,o.customerName,o.customerPhone,o.address].join(' ').toLowerCase().includes(t)).map(row).join('')}
 async function loadOrders(){O=await A().adminOrders();orders()}
 
+function dashboard(){
+  const delivered=O.filter(x=>x.status==='delivered').reduce((a,x)=>a+(+x.total||0),0);
+  const activeOrders=O.filter(x=>!['delivered','cancelled'].includes(x.status)).length;
+  const low=P.filter(x=>(+x.stock||0)<=5).length;
+  q('#view').innerHTML='<div class="admin-stats"><article class="admin-stat-card warm"><span>إجمالي الطلبات</span><b>'+O.length+'</b><small>كل الطلبات المسجلة</small></article><article class="admin-stat-card"><span>طلبات تحتاج متابعة</span><b>'+activeOrders+'</b><small>طلبات غير مكتملة</small></article><article class="admin-stat-card"><span>المبيعات المُسلّمة</span><b>'+m(delivered)+'</b><small>إجمالي الطلبات المسلّمة</small></article><article class="admin-stat-card"><span>مخزون منخفض</span><b>'+low+'</b><small>كتب تحتاج مراجعة</small></article></div><div class="admin-dashboard-grid"><section class="admin-panel"><div class="admin-panel-head"><div><span class="eyebrow">QUICK ACTIONS</span><h2>إجراءات سريعة</h2></div></div><div class="quick-actions"><button class="button button-dark" data-quick="new-product">+ إضافة كتاب</button><button class="button button-outline" data-quick="products">إدارة الكتب</button><button class="button button-outline" data-quick="orders">متابعة الطلبات</button><button class="button button-outline" data-quick="inventory">مراجعة المخزون</button></div></section><section class="admin-panel"><div class="admin-panel-head"><div><span class="eyebrow">LOW STOCK</span><h2>المخزون المنخفض</h2></div></div><div class="admin-list">'+P.filter(x=>(+x.stock||0)<=5).slice(0,8).map(x=>'<div><b>'+e(x.nameAr||x.nameEn)+'</b><span>المتبقي: '+(+x.stock||0)+'</span></div>').join('')+'</div></section></div>';
+}
+function inventory(){
+  const low=P.filter(x=>(+x.stock||0)<=5),out=P.filter(x=>(+x.stock||0)<=0);
+  q('#view').innerHTML='<div class="products-toolbar"><div class="products-toolbar-copy"><span class="eyebrow">INVENTORY</span><h2>إدارة المخزون</h2><p>مراجعة الكميات بسرعة ومعرفة الكتب التي تحتاج إعادة تخزين.</p></div><div class="products-toolbar-actions"><button id="newp" class="button button-dark">+ إضافة كتاب</button></div></div><section class="admin-panel"><div class="admin-stats"><article class="admin-stat-card"><span>إجمالي الكتب</span><b>'+P.length+'</b></article><article class="admin-stat-card"><span>مخزون منخفض</span><b>'+low.length+'</b></article><article class="admin-stat-card"><span>نفد المخزون</span><b>'+out.length+'</b></article></div><div class="products-admin-grid">'+P.map(productCard).join('')+'</div></section>';
+}
+function promotions(){
+  q('#view').innerHTML='<section class="admin-panel"><div class="admin-panel-head"><div><span class="eyebrow">PROMOTIONS</span><h2>الخصومات والعروض</h2></div></div><div class="admin-empty-product"><span class="empty-icon">%</span><h3>محرك الخصومات قيد التجهيز</h3><p>تم تجهيز مكان الوظيفة داخل لوحة الإدارة، وسيتم ربط قواعد الخصم بقاعدة البيانات قبل تفعيلها على الطلبات.</p></div></section>';
+}
+function customers(){
+  q('#view').innerHTML='<section class="admin-panel"><div class="admin-panel-head"><div><span class="eyebrow">CUSTOMERS</span><h2>العملاء</h2></div></div><div class="admin-empty-product"><span class="empty-icon">♙</span><h3>إدارة العملاء</h3><p>سيتم ربط قائمة العملاء بسجل الطلبات وبيانات الحسابات مع صلاحيات القراءة المناسبة.</p></div></section>';
+}
+function settings(){
+  q('#view').innerHTML='<section class="admin-panel"><div class="admin-panel-head"><div><span class="eyebrow">STORE SETTINGS</span><h2>إعدادات المتجر</h2></div></div><div class="admin-list"><div><b>حالة التوصيل</b><span>غير مفعّل حتى تأكيد الأسعار والمناطق</span></div><div><b>العملة</b><span>EGP · جنيه مصري</span></div><div><b>المتجر</b><span>Deliver BOOKS</span></div></div></section>';
+}
 function productStatus(p){
   return p.active
     ? '<span class="product-state is-live"><i></i>منشور</span>'
@@ -140,11 +159,16 @@ function zoneForm(z={}){
   q('#zf').onsubmit=async x=>{x.preventDefault();await A().saveZone(Object.fromEntries(new FormData(x)));Z=await A().adminZones();zones()};
 }
 async function route(t){
-  const names={orders:'الطلبات',products:'الكتب',categories:'الأقسام',zones:'التوصيل'},subs={orders:'متابعة الطلبات وإدارة حالة كل طلب من مكان واحد.',products:'إدارة كتالوج الكتب والمخزون والبيانات الأساسية.',categories:'تنظيم أقسام المتجر وترتيب ظهورها للعملاء.',zones:'إدارة مناطق التوصيل والأسعار الحقيقية المعتمدة.'};
+  const names={dashboard:'نظرة عامة',orders:'الطلبات',products:'الكتب',inventory:'المخزون',categories:'الأقسام',zones:'التوصيل',promotions:'الخصومات',customers:'العملاء',settings:'الإعدادات'},subs={dashboard:'ملخص سريع لأداء المتجر والطلبات والمخزون.',orders:'متابعة الطلبات وإدارة حالة كل طلب من مكان واحد.',products:'إدارة كتالوج الكتب والمخزون والبيانات الأساسية.',inventory:'متابعة الكميات والكتب منخفضة المخزون.',categories:'تنظيم أقسام المتجر وترتيب ظهورها للعملاء.',zones:'إدارة مناطق التوصيل والأسعار الحقيقية المعتمدة.',promotions:'إدارة العروض وكوبونات الخصم.',customers:'متابعة بيانات العملاء وسجل تعاملاتهم.',settings:'إعدادات المتجر والخيارات التشغيلية.'};
   q('#title').textContent=names[t];q('#page-subtitle').textContent=subs[t];q('#title-label').textContent=names[t];
   document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('is-active',x.dataset.tab===t));
+  if(t==='dashboard'){await loadOrders();await loadProducts();dashboard()}
   if(t==='orders')await loadOrders();
   if(t==='products'){await loadProducts();products()}
+  if(t==='inventory'){await loadProducts();inventory()}
+  if(t==='promotions')promotions();
+  if(t==='customers')customers();
+  if(t==='settings')settings();
   if(t==='categories'){C=await A().adminCategories();categories()}
   if(t==='zones'){Z=await A().adminZones();zones()}
 }
@@ -153,6 +177,10 @@ function bind(){
     let t=x.target.closest('[data-tab]');if(t){await route(t.dataset.tab);return}
     if(x.target.closest('#refresh')){await route(document.querySelector('[data-tab].is-active').dataset.tab);return}
     if(x.target.closest('#logout')){await A().staffLogout();location.reload();return}
+    if(x.target.closest('[data-quick="new-product"]')){productForm();return}
+    if(x.target.closest('[data-quick="products"]')){await route('products');return}
+    if(x.target.closest('[data-quick="orders"]')){await route('orders');return}
+    if(x.target.closest('[data-quick="inventory"]')){await route('inventory');return}
     if(x.target.closest('#newp')||x.target.closest('#newp-empty')){productForm();return}
     if(x.target.closest('#newc')){catForm();return}
     if(x.target.closest('#newz')){zoneForm();return}
