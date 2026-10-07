@@ -78,5 +78,5 @@ test('admin exposes core bookstore operations',function(){
     assert.match(a,new RegExp('data-tab="'+tab+'"'));
   });
   assert.match(a,/إضافة كتاب/);
-  assert.match(a,/مخزون منخفض/);
+  assert.match(a,/مخزون منخفض/);\n  assert.match(a,/استيراد Excel/);\n  assert.match(a,/تصدير Excel/);\n  assert.match(a,/admin_save_product|saveProduct/);
 });
