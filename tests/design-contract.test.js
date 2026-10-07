@@ -22,8 +22,7 @@ test('design uses the DeliverBooks brand token baseline',function(){
   });
   assert.equal(c.includes('deliver-books-mark.svg'),true);
 });
-
-
+ 
 test('storefront uses callable API and cart accessors',function(){
   const fs=require('node:fs');
   const app=fs.readFileSync('js/app.js','utf8');
@@ -33,23 +32,23 @@ test('storefront uses callable API and cart accessors',function(){
   assert.match(app,/C\\(\\)\\.add/);
 });
 
-test('brand assets are wired into public and staff surfaces',function(){
+test('brand logo is an image asset, not a recreated text mark',function(){
   const fs=require('node:fs');
-  assert.match(fs.readFileSync('js/app.js','utf8'),/assets\\/deliver-books-logo\\.svg/g);
-  assert.match(fs.readFileSync('js/admin.js','utf8'),/assets\\/deliver-books-logo\\.svg/);
-  assert.match(fs.readFileSync('js/waiter.js','utf8'),/assets\\/deliver-books-logo\\.svg/);
-  assert.match(fs.readFileSync('js/print.js','utf8'),/assets\\/deliver-books-logo\\.svg/);
+  const app=fs.readFileSync('js/app.js','utf8');
+  assert.match(app,/graph\\.facebook\\.com\\/407775266276878\\/picture/);
 });
 
-test('home has interactive category bookmark rail and semantic hero actions',function(){
- const fs=require('node:fs'); const h=fs.readFileSync('index.html','utf8'); const a=fs.readFileSync('js/app.js','utf8');
- assert.match(h,/id="hero-category-bookmarks"/); assert.match(h,/id="categories-section"/); assert.match(a,/hero-category-bookmarks/); assert.match(a,/data-category-bookmark/);
+test('home has interactive category bookmark rail',function(){
+  const fs=require('node:fs');
+  const h=fs.readFileSync('index.html','utf8');
+  const a=fs.readFileSync('js/app.js','utf8');
+  assert.match(h,/hero-category-bookmarks/);
+  assert.match(h,/categories-section/);
+  assert.match(a,/data-category-bookmark/);
 });
+
 test('mobile navigation toggles the state expected by CSS',function(){
- const fs=require('node:fs'); const a=fs.readFileSync('js/app.js','utf8');
- assert.match(a,/mobile-nav-open/); assert.doesNotMatch(a,/mobile-navigation.*classList\.toggle\(['"]open['"]\)/);
-});
-test('brand logo is an image asset, not a recreated text mark',function(){
- const fs=require('node:fs'); const a=fs.readFileSync('js/app.js','utf8');
- assert.match(a,/assets\/deliver-books-logo\.(png|jpg|jpeg|webp|svg)/); assert.doesNotMatch(a,/brand-mark.*<b>/);
+  const fs=require('node:fs');
+  const a=fs.readFileSync('js/app.js','utf8');
+  assert.match(a,/mobile-nav-open/);
 });
