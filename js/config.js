@@ -5,7 +5,7 @@ window.DeliverBooksConfig = Object.freeze({
   currency: 'EGP',
   deliveryConfigured: false,
   contact: {
-    phone: '+201555949412',
+    phone: '+201119097679',
     whatsapp: '+201555949412',
     facebook: 'https://www.facebook.com/DeliverBooksEgypt/',
     instagram: 'https://www.instagram.com/deliverbooks/'
