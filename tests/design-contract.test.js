@@ -80,3 +80,37 @@ test('admin exposes core bookstore operations',function(){
   assert.match(a,/إضافة كتاب/);
   assert.match(a,/مخزون منخفض/);\n  assert.match(a,/استيراد Excel/);\n  assert.match(a,/تصدير Excel/);\n  assert.match(a,/admin_save_product|saveProduct/);
 });
+
+test('customer header exposes account, cart drawer, and accessible mobile menu controls',function(){
+  const a=fs.readFileSync('js/app.js','utf8');
+  assert.match(a,/header-account/);
+  assert.match(a,/cart-drawer/);
+  assert.match(a,/cart-drawer-backdrop/);
+  assert.match(a,/mobile-nav-backdrop/);
+  assert.match(a,/data-menu-close/);
+  assert.match(a,/data-cart-open/);
+});
+
+test('customer auth uses Supabase Auth for signup, login, and password recovery',function(){
+  const a=fs.readFileSync('js/customer-auth.js','utf8');
+  ['signUp','signInWithPassword','resetPasswordForEmail','updateUser','signOut'].forEach(function(method){
+    assert.match(a,new RegExp('\\.'+method+'\\('));
+  });
+  assert.match(a,/emailRedirectTo/);
+  assert.match(a,/redirectTo/);
+});
+
+test('customer account pages exist and share the storefront shell',function(){
+  ['auth.html','account.html'].forEach(function(f){
+    const c=fs.readFileSync(f,'utf8');
+    assert.match(c,/site-header/);
+    assert.match(c,/js\/customer-auth\.js/);
+    assert.match(c,/js\/api\.js/);
+  });
+});
+
+test('public contact details use the verified Deliver BOOKS number',function(){
+  const c=fs.readFileSync('js/config.js','utf8');
+  assert.match(c,/\\+201119097679/);
+  assert.match(c,/facebook\.com/);
+});
