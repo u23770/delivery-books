@@ -223,7 +223,9 @@ function bind(){
     if(x.target.closest('[data-quick="products"]')){await route('products');return}
     if(x.target.closest('[data-quick="orders"]')){await route('orders');return}
     if(x.target.closest('[data-quick="inventory"]')){await route('inventory');return}
-    if(x.target.closest('#catalog-import')){openCatalogImport();return}\n    if(x.target.closest('#catalog-export')){exportCatalog();return}\n    if(x.target.closest('#newp')||x.target.closest('#newp-empty')){productForm();return}
+    if(x.target.closest('#catalog-import')){openCatalogImport();return}
+    if(x.target.closest('#catalog-export')){exportCatalog();return}
+    if(x.target.closest('#newp')||x.target.closest('#newp-empty')){productForm();return}
     if(x.target.closest('#newc')){catForm();return}
     if(x.target.closest('#newz')){zoneForm();return}
     let p=x.target.closest('[data-editp]');if(p){const item=P.find(v=>String(v.id)===p.dataset.editp);if(item)productForm(item);return}
