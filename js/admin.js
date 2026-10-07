@@ -74,8 +74,50 @@ function paintProducts(){
   q('#product-count').textContent=items.length+' من '+P.length+' كتاب';
 }
 
+function normalizeImportKey(v){return String(v??'').trim().toLowerCase().replace(/[\\s_\\-\\/\\\\.]+/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه')}
+function importValue(row,names){for(const n of names){const k=normalizeImportKey(n);for(const rk of Object.keys(row)){if(normalizeImportKey(rk)===k&&String(row[rk]??'').trim()!=='')return row[rk]}}return ''}
+function boolValue(v,def=true){if(v===undefined||v===null||String(v).trim()==='')return def;return ['1','true','yes','y','نعم','متاح','منشور','ظاهر'].includes(String(v).trim().toLowerCase())}
+function numberValue(v,def=0){const n=Number(String(v??'').replace(/[,،]/g,''));return Number.isFinite(n)?n:def}
+function slugValue(v){return String(v??'').trim().toLowerCase().replace(/\\s+/g,'-').replace(/[^\\p{L}\\p{N}\\-_]+/gu,'').replace(/-+/g,'-').replace(/^-|-$/g,'')}
+function resolveCategory(v){const needle=normalizeImportKey(v);if(!needle)return null;const hit=C.find(c=>[c.id,c.slug,c.nameAr,c.nameEn,c.name_ar,c.name_en].some(x=>normalizeImportKey(x)===needle));return hit?.id||null}
+function importRowToProduct(row){
+  const existingId=importValue(row,['id','product_id','معرف','رقم']),sku=String(importValue(row,['sku','SKU','كود','كود الكتاب'])).trim(),slug=slugValue(importValue(row,['slug','الرابط','الرابط المختصر']));
+  const existing=P.find(p=>(existingId&&String(p.id)===String(existingId))||(sku&&String(p.sku||'')===sku)||(slug&&String(p.slug||'')===slug));
+  const nameAr=String(importValue(row,['nameAr','name_ar','arabic_name','الاسم العربي','اسم الكتاب'])).trim(),nameEn=String(importValue(row,['nameEn','name_en','english_name','English title','الاسم الانجليزي'])).trim();
+  return {id:existing?.id||existingId||null,nameAr:nameAr||existing?.nameAr||'',nameEn:nameEn||existing?.nameEn||'',slug:slug||slugValue(existing?.slug||nameEn||nameAr)||('book-'+Date.now()+'-'+Math.random().toString(36).slice(2,7)),categoryId:resolveCategory(importValue(row,['categoryId','category_id','category','القسم','التصنيف']))||existing?.categoryId||null,price:numberValue(importValue(row,['price','السعر']),existing?.price||0),compareAt:numberValue(importValue(row,['compareAt','compare_at_price','السعر قبل الخصم']),existing?.compareAt||0)||null,sku:sku||existing?.sku||'',stock:numberValue(importValue(row,['stock','المخزون','الكمية']),existing?.stock||0),active:boolValue(importValue(row,['active','published','ظاهر','منشور']),existing?.active!==false),featured:boolValue(importValue(row,['featured','مميز']),existing?.featured||false),badge:String(importValue(row,['badge','الشارة','وسم'])||existing?.badge||''),author:String(importValue(row,['author','المؤلف'])||existing?.author||''),isbn:String(importValue(row,['isbn','ISBN'])||existing?.isbn||''),publisher:String(importValue(row,['publisher','الناشر'])||existing?.publisher||''),pages:numberValue(importValue(row,['pages','عدد الصفحات']),existing?.pages||0)||null,language:String(importValue(row,['language','اللغة'])||existing?.language||''),descriptionAr:String(importValue(row,['descriptionAr','description_ar','الوصف العربي'])||existing?.descriptionAr||''),descriptionEn:String(importValue(row,['descriptionEn','description_en','English description','الوصف الانجليزي'])||existing?.descriptionEn||'')};
+}
+function openCatalogImport(){
+  if(!window.XLSX){alert('أداة Excel لم تُحمّل بعد. أعد فتح الصفحة وحاول مرة أخرى.');return}
+  const modal='<div class="product-modal-backdrop" id="catalog-import-modal"><section class="product-modal" role="dialog" aria-modal="true"><header class="product-modal-head"><div><span class="eyebrow">BULK IMPORT</span><h2>استيراد وتحديث الكتب</h2></div><button class="modal-close" data-close-import>×</button></header><div class="product-editor"><div class="admin-note">سيتم تحديث الكتاب إذا تطابق <b>ID</b> أو <b>SKU</b> أو <b>Slug</b>، وإلا سيتم إنشاء كتاب جديد. اترك الحقول التي لا تريد تغييرها فارغة.</div><div id="import-summary" class="admin-panel" style="margin-top:14px"><p>اختر ملف Excel أو CSV للبدء.</p></div><div class="product-modal-actions"><button class="button button-outline" data-close-import>إلغاء</button><button class="button button-dark" id="import-run" disabled>تنفيذ الاستيراد</button></div></div></section></div>';
+  q('#view').insertAdjacentHTML('beforeend',modal);
+  const modalEl=q('#catalog-import-modal'),summary=q('#import-summary'),run=q('#import-run'),input=q('#catalog-import-file');
+  let rows=[],mapped=[];
+  modalEl.querySelectorAll('[data-close-import]').forEach(b=>b.onclick=()=>modalEl.remove());
+  input.onchange=async ev=>{
+    const file=ev.target.files?.[0]; if(!file)return;
+    try{
+      const data=await file.arrayBuffer(),wb=XLSX.read(data,{type:'array'}),sheet=wb.Sheets[wb.SheetNames[0]];
+      rows=XLSX.utils.sheet_to_json(sheet,{defval:''}).filter(r=>Object.values(r).some(v=>String(v).trim()!==''));
+      mapped=rows.map(importRowToProduct);
+      const invalid=mapped.filter(x=>(!x.nameAr&&!x.nameEn)||x.price<0||x.stock<0);
+      summary.innerHTML='<div class="admin-stats"><article class="admin-stat-card"><span>صفوف مقروءة</span><b>'+rows.length+'</b></article><article class="admin-stat-card"><span>تحديث</span><b>'+mapped.filter(x=>x.id).length+'</b></article><article class="admin-stat-card"><span>جديد</span><b>'+mapped.filter(x=>!x.id).length+'</b></article><article class="admin-stat-card"><span>غير صالحة</span><b>'+invalid.length+'</b></article></div><div class="admin-note">المطابقة بالأولوية: ID ثم SKU ثم Slug. الصفوف غير الصالحة سيتم تجاهلها.</div>';
+      run.disabled=!mapped.some(x=>x.nameAr||x.nameEn);run._rows=mapped.filter(x=>(x.nameAr||x.nameEn)&&x.price>=0&&x.stock>=0);
+    }catch(ex){summary.innerHTML='<div class="form-error">تعذر قراءة الملف: '+e(ex.message)+'</div>';run.disabled=true}
+  };
+  run.onclick=async()=>{
+    const data=run._rows||[];if(!data.length)return;run.disabled=true;let ok=0,fail=0;
+    for(let i=0;i<data.length;i++){run.textContent='حفظ '+(i+1)+' / '+data.length;try{const saved=await A().saveProduct(data[i]);if(saved?.id&&!data[i].id)data[i].id=saved.id;ok++}catch(ex){fail++}}
+    modalEl.remove();await loadProducts();products();alert('تم الاستيراد: '+ok+' بنجاح'+(fail?'، '+fail+' صفوف فشلت':'')); 
+  };
+  input.click();
+}
+function exportCatalog(){
+  if(!window.XLSX){alert('أداة Excel لم تُحمّل بعد.');return}
+  const rows=P.map(p=>({id:p.id,nameAr:p.nameAr,nameEn:p.nameEn,slug:p.slug,category:p.category?.name_ar||p.category?.name_en||'',price:p.price,compareAt:p.compareAt||'',sku:p.sku||'',stock:p.stock,active:p.active,featured:p.featured,badge:p.badge||'',author:p.author||'',isbn:p.isbn||'',publisher:p.publisher||'',pages:p.pages||'',language:p.language||'',descriptionAr:p.descriptionAr||'',descriptionEn:p.descriptionEn||''}));
+  const ws=XLSX.utils.json_to_sheet(rows),wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Books');XLSX.writeFile(wb,'deliver-books-catalog.xlsx');
+}
 function products(){
-  q('#view').innerHTML='<div class="products-toolbar"><div class="products-toolbar-copy"><span class="eyebrow">CATALOG</span><h2>مكتبة DeliverBooks</h2><p>إدارة الكتب، الأسعار، المخزون، الـSKU والصور من شاشة واحدة.</p></div><div class="products-toolbar-actions"><button id="newp" class="button button-dark">+ إضافة كتاب</button></div></div>'+
+  q('#view').innerHTML='<div class="products-toolbar"><div class="products-toolbar-copy"><span class="eyebrow">CATALOG</span><h2>مكتبة DeliverBooks</h2><p>إدارة الكتب، الأسعار، المخزون، الـSKU والصور من شاشة واحدة.</p></div><div class="products-toolbar-actions"><input id="catalog-import-file" type="file" accept=".xlsx,.xls,.csv" hidden><button id="catalog-import" class="button button-outline">استيراد Excel</button><button id="catalog-export" class="button button-outline">تصدير Excel</button><button id="newp" class="button button-dark">+ إضافة كتاب</button></div></div>'+
     '<section class="admin-panel product-manager-panel"><div class="product-manager-head"><label class="admin-search product-search"><span>⌕</span><input id="product-search" placeholder="ابحث بالاسم أو المؤلف أو SKU"></label><select id="product-filter"><option value="">كل الكتب</option><option value="active">المنشورة فقط</option><option value="hidden">المخفية فقط</option></select><span id="product-count"></span></div><div class="products-admin-grid" id="product-list"></div></section>';
   q('#product-search').value=productSearch;q('#product-filter').value=productFilter;
   q('#product-search').oninput=x=>{productSearch=x.target.value;paintProducts()};
@@ -181,7 +223,7 @@ function bind(){
     if(x.target.closest('[data-quick="products"]')){await route('products');return}
     if(x.target.closest('[data-quick="orders"]')){await route('orders');return}
     if(x.target.closest('[data-quick="inventory"]')){await route('inventory');return}
-    if(x.target.closest('#newp')||x.target.closest('#newp-empty')){productForm();return}
+    if(x.target.closest('#catalog-import')){openCatalogImport();return}\n    if(x.target.closest('#catalog-export')){exportCatalog();return}\n    if(x.target.closest('#newp')||x.target.closest('#newp-empty')){productForm();return}
     if(x.target.closest('#newc')){catForm();return}
     if(x.target.closest('#newz')){zoneForm();return}
     let p=x.target.closest('[data-editp]');if(p){const item=P.find(v=>String(v.id)===p.dataset.editp);if(item)productForm(item);return}
