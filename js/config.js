@@ -8,6 +8,9 @@ window.DeliverBooksConfig = Object.freeze({
     phone: '+201119097679',
     whatsapp: '+201555949412',
     facebook: 'https://www.facebook.com/DeliverBooksEgypt/',
-    instagram: 'https://www.instagram.com/deliverbooks/'
+    instagram: 'https://www.instagram.com/deliverbooks/',
+    address: 'Cairo, Egypt',
+    serviceArea: 'Egypt',
+    deliveryTime: '2–4 days'
   }
 });
