@@ -59,3 +59,5 @@ button,input,select,textarea{font:inherit}.admin-shell{min-height:100vh;display:
 .track-step.is-done{color:var(--ad-soft)!important}.track-step.is-done i{background:var(--ad-soft)!important;border-color:var(--ad-soft)!important}.track-step.is-current{color:var(--ad-red)!important}.track-step.is-current i{box-shadow:0 0 0 4px rgba(227,9,25,.14)!important}
 .print-paper header{border-color:var(--ad-ink)!important}.print-logo{width:120px;height:75px;object-fit:contain}
 @media(max-width:850px){.admin-brand img{width:135px;height:66px}}
+
+.status-pending{background:#f8eff0!important;color:#7b5559!important}.status-confirmed{background:#f5e7e9!important;color:#6a3037!important}.status-preparing{background:#f6eee8!important;color:#7a4b37!important}.status-out_for_delivery{background:#fdebed!important;color:#a51e2b!important}.status-delivered{background:#f4e9e9!important;color:#5e3036!important}.status-cancelled{background:#f9e5e7!important;color:#a51e2b!important}
