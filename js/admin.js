@@ -5,7 +5,7 @@ const S=['pending','confirmed','preparing','out_for_delivery','delivered','cance
 let O=[],P=[],C=[],Z=[],productSearch='',productFilter='';
 
 function gate(){
-  document.body.innerHTML='<div class="staff-gate"><div class="staff-card"><span class="eyebrow">DELIVER BOOKS</span><h1>لوحة الإدارة</h1><p>كود الإدارة</p><form id="g"><input id="code" type="password" required autocomplete="current-password"><button class="button button-dark">دخول</button><small id="err"></small></form></div></div>';
+  document.body.innerHTML='<div class="staff-gate"><div class="staff-card"><img class="staff-logo" src="assets/Deliverbooks.png" alt="Deliver BOOKS"><span class="eyebrow">DELIVER BOOKS</span><h1>لوحة الإدارة</h1><p>كود الإدارة</p><form id="g"><input id="code" type="password" required autocomplete="current-password"><button class="button button-dark">دخول</button><small id="err"></small></form></div></div>';
   q('#g').onsubmit=async x=>{x.preventDefault();try{await A().staffLogin(q('#code').value,'admin');boot()}catch(z){q('#err').textContent=z.message}};
 }
 
