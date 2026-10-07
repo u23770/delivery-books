@@ -130,3 +130,10 @@ button,input,select,textarea{font:inherit}.admin-shell{min-height:100vh;display:
 @media(max-width:1080px){.products-admin-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.products-toolbar{align-items:flex-start;flex-direction:column}.products-toolbar-actions{width:100%}.product-manager-head{grid-template-columns:1fr}.product-manager-head>span{text-align:start}.products-admin-grid{grid-template-columns:1fr 1fr;padding:10px;gap:9px}.product-admin-body{padding:11px}.product-admin-heading h3{font-size:15px}.product-admin-meta{margin-top:9px}.product-admin-foot{margin-top:10px}.product-editor{padding-inline:15px}.product-modal-head{padding-inline:15px}.product-media-grid,.product-file-preview{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:500px){.products-admin-grid{grid-template-columns:1fr}.product-admin-media{aspect-ratio:1/1.08}.product-modal-backdrop{padding:0}.product-modal{max-height:100dvh;height:100dvh;border:0}.product-modal-head{padding-block:15px}.product-modal-head h2{font-size:23px}.product-editor-section{padding-block:16px}.product-media-grid,.product-file-preview{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Admin v2 polish */
+.staff-card .staff-logo{display:block;width:min(190px,62vw);height:auto;max-height:110px;object-fit:contain;margin:0 auto 18px}
+.admin-dashboard-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:18px;margin-top:18px}
+.quick-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.quick-actions .button{min-height:48px}
+@media(max-width:760px){.admin-dashboard-grid{grid-template-columns:1fr}.quick-actions{grid-template-columns:1fr}.staff-card .staff-logo{width:150px}}
