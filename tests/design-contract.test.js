@@ -52,3 +52,18 @@ test('mobile navigation toggles the state expected by CSS',function(){
   const a=fs.readFileSync('js/app.js','utf8');
   assert.match(a,/mobile-nav-open/);
 });
+test('shop page exposes usable search and category controls',function(){
+  const h=fs.readFileSync('shop.html','utf8');
+  const a=fs.readFileSync('js/app.js','utf8');
+  assert.match(h,/shop-toolbar/);
+  assert.match(h,/shop-query/);
+  assert.match(h,/shop-category-filter/);
+  assert.match(a,/shop-query/);
+  assert.match(a,/shop-category-filter/);
+});
+
+test('mobile navigation closes after selecting a destination',function(){
+  const a=fs.readFileSync('js/app.js','utf8');
+  assert.match(a,/mobile-navigation[^]*closest\(.*a/);
+  assert.match(a,/mobile-nav-open/);
+});
