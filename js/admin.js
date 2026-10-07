@@ -154,6 +154,8 @@ function bind(){
     if(x.target.closest('#refresh')){await route(document.querySelector('[data-tab].is-active').dataset.tab);return}
     if(x.target.closest('#logout')){await A().staffLogout();location.reload();return}
     if(x.target.closest('#newp')||x.target.closest('#newp-empty')){productForm();return}
+    if(x.target.closest('#newc')){catForm();return}
+    if(x.target.closest('#newz')){zoneForm();return}
     let p=x.target.closest('[data-editp]');if(p){const item=P.find(v=>String(v.id)===p.dataset.editp);if(item)productForm(item);return}
     let c=x.target.closest('[data-editc]');if(c){const item=C.find(v=>String(v.id)===c.dataset.editc);if(item)catForm(item);return}
     let z=x.target.closest('[data-editz]');if(z){const item=Z.find(v=>String(v.id)===z.dataset.editz);if(item)zoneForm(item);return}
