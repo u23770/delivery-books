@@ -118,3 +118,5 @@ textarea{resize:none}
 .footer-brand>p,.footer-links a,.footer-bottom{color:#e9dfe0!important}
 .footer-links a:hover{color:#fff!important}
 .footer-bottom{border-color:rgba(255,255,255,.13)!important}
+
+.status-pending{background:#f8eff0!important;color:#7b5559!important}.status-confirmed{background:#f5e7e9!important;color:#6a3037!important}.status-preparing{background:#f6eee8!important;color:#7a4b37!important}.status-out_for_delivery{background:#fdebed!important;color:#a51e2b!important}.status-delivered{background:#f4e9e9!important;color:#5e3036!important}.status-cancelled{background:#f9e5e7!important;color:#a51e2b!important}
