@@ -15,9 +15,10 @@ test('public pages do not hard-code delivery prices',function(){
   });
 });
 
-test('design uses Center El Gowaily token baseline',function(){
+test('design uses the DeliverBooks brand token baseline',function(){
   const c=fs.readFileSync('css/style.css','utf8');
-  ['--ink:#252924','--paper:#f7f5ef','--olive:#747c63','--clay:#bd6849'].forEach(function(token){
+  ['--ink:#52191f','--paper:#fffdfc','--clay:#e30919'].forEach(function(token){
     assert.equal(c.includes(token),true);
   });
+  assert.equal(c.includes('deliver-books-mark.svg'),true);
 });
