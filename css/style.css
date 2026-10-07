@@ -214,3 +214,42 @@ textarea{resize:none}
 @media(prefers-reduced-motion:reduce){
   .brand-lockup,.button,.quick-add{transition:none!important}
 }
+
+
+/* Homepage debug refinement — typography, spacing, and CTA interaction */
+.db-hero .hero-copy{max-width:600px}
+.db-hero .hero-copy h1{font-size:clamp(52px,6vw,78px);line-height:1.02;max-width:590px;margin-block:18px 18px}
+.db-hero .hero-copy p{font-size:14px;line-height:1.85;max-width:470px}
+.db-hero .hero-actions{gap:14px;margin-block-start:28px;flex-wrap:wrap}
+.db-hero .hero-actions .button{min-width:132px;min-height:50px;padding-inline:22px;border-radius:4px}
+.db-hero .hero-secondary{min-height:50px;display:inline-flex;align-items:center;padding-inline:14px;border:1px solid rgba(82,25,31,.22);border-radius:4px;color:var(--ink);background:rgba(255,255,255,.7);font-size:11px;font-weight:730;transition:background .18s,color .18s,border-color .18s,transform .14s}
+.db-hero .hero-secondary:hover{background:#fff;color:var(--clay-dark);border-color:rgba(82,25,31,.38);transform:translateY(-1px)}
+.db-hero .hero-secondary:active{transform:translateY(1px)}
+.db-hero .hero-secondary:focus-visible{outline:3px solid rgba(227,9,25,.28);outline-offset:3px}
+.promise-strip>div{min-height:78px;padding-inline:18px;text-align:center}
+.promise-strip>div span:last-child{line-height:1.55}
+.section-heading h2{font-size:clamp(29px,3vw,38px)}
+.collection-grid,.product-grid{align-items:stretch}
+.section-link{min-height:34px;align-items:center}
+@media(max-width:920px){
+  .db-hero .hero-copy{width:calc(100% - 44px);max-width:none;margin-inline:22px;margin-block-end:48px}
+  .db-hero .hero-copy h1{font-size:clamp(45px,9.5vw,64px)}
+  .db-hero .hero-copy p{font-size:12px;max-width:520px}
+  .db-hero .hero-actions{margin-block-start:22px}
+}
+@media(max-width:680px){
+  .db-hero .hero-copy{margin-block-end:38px}
+  .db-hero .hero-copy h1{font-size:clamp(38px,11.5vw,53px);line-height:1.08;margin-block:14px 14px}
+  .db-hero .hero-copy p{font-size:11px;line-height:1.8}
+  .db-hero .hero-actions{display:grid;grid-template-columns:1fr;gap:9px;max-width:280px}
+  .db-hero .hero-actions .button,.db-hero .hero-secondary{width:100%;min-height:46px}
+  .promise-strip{grid-template-columns:1fr;min-height:0}
+  .promise-strip>div{min-height:58px;border-block-end:1px solid var(--line)}
+  .promise-strip>div:last-child{border-block-end:0}
+  .section-heading{align-items:flex-start;gap:14px}
+  .section-heading h2{font-size:28px}
+  .section-link{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .db-hero .hero-secondary{transition:none}
+}
