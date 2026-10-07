@@ -35,7 +35,7 @@ test('storefront uses callable API and cart accessors',function(){
 test('brand logo is an image asset, not a recreated text mark',function(){
   const fs=require('node:fs');
   const app=fs.readFileSync('js/app.js','utf8');
-  assert.match(app,/graph\\.facebook\\.com\\/407775266276878\\/picture/);
+  assert.equal(app.includes('graph.facebook.com/407775266276878/picture'),true);
 });
 
 test('home has interactive category bookmark rail',function(){
