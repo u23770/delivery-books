@@ -519,3 +519,46 @@ h1,h2,h3,.hero-copy h1,.section-heading h2,.collection-card h3,.product-card-tit
   .db-hero .hero-copy{order:2!important;width:100%!important}
   .db-book{left:50%!important;right:auto!important}
 }
+
+
+/* Production debug fix — force physical desktop composition independent of RTL flex direction */
+@media (min-width:681px){
+  .db-hero{
+    direction:ltr!important;
+  }
+  .db-hero-art{
+    order:1!important;
+    flex:0 0 43%!important;
+    width:43%!important;
+    min-width:0!important;
+    margin:0!important;
+    left:auto!important;
+    right:auto!important;
+  }
+  .db-hero .hero-copy{
+    order:2!important;
+    flex:1 1 57%!important;
+    width:auto!important;
+    min-width:0!important;
+    margin:0!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+}
+@media (max-width:680px){
+  .db-hero{
+    direction:rtl!important;
+  }
+  .db-hero-art{
+    order:-1!important;
+    width:100%!important;
+    flex:0 0 auto!important;
+  }
+  .db-hero .hero-copy{
+    order:2!important;
+    width:100%!important;
+    flex:0 0 auto!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+}
