@@ -73,3 +73,48 @@ textarea{resize:none}
 .db-category-placeholder:after{content:"";position:absolute;width:160px;height:220px;border:1px solid rgba(255,255,255,.22);inset-inline-end:-30px;inset-block-start:25px;transform:rotate(8deg)}
 .db-category-placeholder strong{position:relative;z-index:1;font-family:Georgia,"Times New Roman",serif;font-size:28px;font-weight:500}
 .db-offline-banner{display:none}.db-offline .db-offline-banner{display:block;padding:8px 14px;background:#f3e8cf;color:#6c542a;text-align:center;font-size:9px}
+
+/* DeliverBooks brand layer */
+.announcement{background:var(--ink)!important;color:#fff!important}
+.announcement a{color:#fff!important}
+.site-header{background:rgba(255,255,255,.96)!important;border-color:var(--line)!important}
+.header-main{min-height:86px!important;grid-template-columns:190px minmax(280px,1fr) minmax(220px,320px) auto!important;gap:26px!important}
+.brand-lockup{display:flex!important;align-items:center!important;justify-content:flex-start!important;width:190px!important;height:72px!important}
+.brand-logo{width:170px!important;height:70px!important;display:block!important;object-fit:contain!important;object-position:center!important}
+.primary-nav a{color:var(--ink-soft)!important}
+.primary-nav a:hover,.primary-nav a.active{color:var(--clay)!important}
+.header-search{border-color:var(--line)!important;background:#fff!important}
+.header-search input{color:var(--ink)!important}
+.header-search button{color:var(--clay)!important}
+.header-bag{color:var(--ink)!important}
+.header-bag b{background:var(--clay)!important;color:#fff!important}
+.mobile-menu-button{color:var(--ink)!important;border-color:var(--line)!important}
+.mobile-navigation{background:#fff!important;border-color:var(--line)!important}
+.mobile-navigation a{color:var(--ink)!important;border-color:var(--line)!important}
+.button-primary{background:var(--clay)!important}.button-primary:hover:not(:disabled){background:var(--clay-dark)!important}
+.button-dark{background:var(--ink)!important}.button-dark:hover:not(:disabled){background:#6b2931!important}
+.button-outline:hover:not(:disabled){background:var(--ink)!important}
+.db-hero .hero-image{opacity:.10!important;filter:saturate(.5)!important}
+.db-hero:before{background:linear-gradient(90deg,rgba(255,255,255,.99),rgba(255,255,255,.88),rgba(227,9,25,.04))!important}
+.db-hero-art{opacity:.9!important}
+.db-hero-art:before{content:"";position:absolute;inset:8% 8% auto auto;width:120px;height:120px;background:url("../assets/deliver-books-mark.svg") center/contain no-repeat;opacity:.12}
+.hero-eyebrow,.db-section-kicker{color:var(--clay)!important}
+.hero-eyebrow i{background:var(--clay)!important}
+.hero-copy h1{color:var(--ink)!important}
+.hero-copy p{color:var(--ink-soft)!important}
+.hero-secondary{color:var(--ink)!important}.hero-secondary:hover{color:var(--clay)!important}
+.hero-footnote i{background:var(--clay)!important}
+.promise-strip{background:var(--ink)!important;color:#fff!important;border-color:var(--ink)!important}
+.promise-strip>div{border-color:rgba(255,255,255,.12)!important}.promise-icon{color:var(--clay)!important}
+.collection-card:before{background:linear-gradient(0deg,rgba(82,25,31,.88),rgba(82,25,31,.18))!important}
+.collection-card:hover{border-color:rgba(227,9,25,.45)!important}
+.product-card-image{background:#fff!important;border-color:var(--line)!important}
+.product-card-title:hover,.section-link:hover,.text-link:hover{color:var(--clay)!important}
+.quick-add{background:var(--ink)!important;color:#fff!important}.quick-add:hover{background:var(--clay)!important}
+.product-detail-price b,.product-card-bottom>b{color:var(--ink)!important}
+.site-footer{background:var(--ink)!important;color:#fff!important}
+.footer-brand,.footer-links strong{color:#fff!important}
+.footer-logo{width:170px!important;height:115px!important;object-fit:contain;object-position:center}
+.footer-brand>p,.footer-links a,.footer-bottom{color:#e9dfe0!important}
+.footer-links a:hover{color:#fff!important}
+.footer-bottom{border-color:rgba(255,255,255,.13)!important}
