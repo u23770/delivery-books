@@ -103,7 +103,7 @@ function productForm(p={}){
   const modalEl=q('#product-modal'),fileInput=q('#product-files'),preview=q('#product-file-preview');
   const pendingFiles=[];
   const renderPreview=()=>{preview.innerHTML=pendingFiles.map((f,i)=>'<div class="pending-image"><img src="'+URL.createObjectURL(f)+'" alt=""><span>'+e(f.name)+'</span><button type="button" data-remove-file="'+i+'">×</button></div>').join('')};
-  fileInput.onchange=x=>{pendingFiles.push(...Array.from(x.target.files||[]));x.target.value='';renderPreview()};
+  fileInput.onchange=x=>{pendingFiles.push(...Array.from(x.target.files||[]));x.target.value='';renderPreview()};preview.onclick=x=>{const b=x.target.closest('[data-remove-file]');if(!b)return;pendingFiles.splice(+b.dataset.removeFile,1);renderPreview()};
   q('#pf').onsubmit=async x=>{
     x.preventDefault();
     const btn=q('#product-save'),err=q('#product-form-error');
@@ -117,7 +117,7 @@ function productForm(p={}){
     }catch(ex){err.textContent=ex.message||'تعذر حفظ الكتاب.';err.hidden=false;btn.disabled=false;btn.textContent='حفظ الكتاب'}
   };
   modalEl.querySelectorAll('[data-close-product]').forEach(b=>b.onclick=()=>modalEl.remove());
-  modalEl.querySelectorAll('[data-delimage]').forEach(b=>b.onclick=async()=>{if(!b.dataset.delimage)return; b.disabled=true;try{await A().deleteProductImage(b.dataset.delimage);await loadProducts();const fresh=P.find(v=>String(v.id)===String(p.id));modalEl.remove();productForm(fresh||p)}catch(ex){b.disabled=false;alert(ex.message)}});
+  modalEl.querySelectorAll('[data-delimage]').forEach(b=>b.onclick=async()=>{if(!b.dataset.delimage)return;const err=q('#product-form-error');b.disabled=true;err.hidden=true;try{await A().deleteProductImage(b.dataset.delimage);await loadProducts();const fresh=P.find(v=>String(v.id)===String(p.id));modalEl.remove();productForm(fresh||p)}catch(ex){b.disabled=false;err.textContent=ex.message;err.hidden=false}});
   modalEl.onmousedown=x=>{if(x.target===modalEl)modalEl.remove()};
   document.onkeydown=function keyHandler(x){if(x.key==='Escape'&&q('#product-modal')){q('#product-modal').remove();document.removeEventListener('keydown',keyHandler)}};
   modalEl.querySelectorAll('[data-remove-file]').forEach(b=>b.onclick=()=>{pendingFiles.splice(+b.dataset.removeFile,1);renderPreview()});
