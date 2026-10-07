@@ -35,7 +35,7 @@ test('storefront uses callable API and cart accessors',function(){
 test('brand logo is an image asset, not a recreated text mark',function(){
   const fs=require('node:fs');
   const app=fs.readFileSync('js/app.js','utf8');
-  assert.equal(app.includes('graph.facebook.com/407775266276878/picture'),true);
+  assert.equal(app.includes('assets/Deliverbooks.png'),true);
 });
 
 test('home has interactive category bookmark rail',function(){
@@ -66,4 +66,17 @@ test('mobile navigation closes after selecting a destination',function(){
   const a=fs.readFileSync('js/app.js','utf8');
   assert.match(a,/mobile-navigation[^]*closest\(.*a/);
   assert.match(a,/mobile-nav-open/);
+});
+
+test('admin uses supplied brand asset on access gate and console',function(){
+  const a=fs.readFileSync('js/admin.js','utf8');
+  assert.equal((a.match(/assets\/Deliverbooks\.png/g)||[]).length>=2,true);
+});
+test('admin exposes core bookstore operations',function(){
+  const a=fs.readFileSync('js/admin.js','utf8');
+  ['dashboard','orders','products','inventory','categories','zones','promotions','customers','settings'].forEach(function(tab){
+    assert.match(a,new RegExp('data-tab="'+tab+'"'));
+  });
+  assert.match(a,/إضافة كتاب/);
+  assert.match(a,/مخزون منخفض/);
 });
