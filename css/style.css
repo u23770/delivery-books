@@ -442,3 +442,24 @@ h1,h2,h3,.hero-copy h1,.section-heading h2,.collection-card h3,.product-card-tit
   .db-hero .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important}
   .db-hero .hero-actions .button-primary,.db-hero .hero-actions .hero-secondary{width:100%!important;min-height:46px!important}
 }
+
+/* Final UI audit — left-side bookmark rail and consistent action icons */
+.db-hero-art{inset-inline-start:0!important;inset-inline-end:auto!important;width:min(41vw,540px)!important;padding-inline:22px!important}
+.db-book-stack{width:100%!important;max-width:500px!important}
+.db-book{width:78%!important}
+.db-hero .hero-copy{margin-inline-start:44%!important;width:min(52%,650px)!important}
+.hero-cta-icon,.hero-cta-whatsapp,.hero-cta-arrow{display:inline-grid;place-items:center;flex:0 0 auto}
+.hero-cta-icon{width:17px;height:17px;position:relative;border:1.5px solid currentColor;border-radius:2px}
+.hero-cta-icon:before{content:"";position:absolute;width:8px;height:5px;left:3px;top:5px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg)}
+.hero-cta-whatsapp{width:17px;height:17px;border:1.5px solid currentColor;border-radius:50%;position:relative}
+.hero-cta-whatsapp:before{content:"";position:absolute;width:5px;height:4px;border-left:1.5px solid currentColor;border-bottom:1.5px solid currentColor;left:3px;bottom:1px;transform:skew(-25deg)}
+.hero-cta-arrow{font-size:14px;line-height:1;margin-inline-start:2px}
+@media(max-width:920px){
+ .db-hero-art{inset-inline-start:0!important;width:54vw!important;padding-inline:10px!important}
+ .db-hero .hero-copy{margin-inline-start:46%!important;width:50%!important}
+}
+@media(max-width:680px){
+ .db-hero-art{inset-inline-start:0!important;width:74vw!important;padding-inline:4px!important}
+ .db-hero .hero-copy{margin-inline:22px!important;width:calc(100% - 44px)!important}
+ .db-book{width:88%!important}
+}
